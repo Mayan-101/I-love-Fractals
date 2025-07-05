@@ -7,10 +7,10 @@ A real-time Julia set fractal renderer implemented using OpenGL and fragment sha
 This project renders the Julia set fractal using GPU acceleration through OpenGL fragment shaders. The Julia set is a fascinating mathematical fractal that creates intricate, self-similar patterns at different scales. By leveraging the parallel processing power of graphics cards, this implementation achieves real-time rendering with smooth zooming and parameter adjustment capabilities.
 
 ### Demo
+![Real-Time Julia set rendering](https://github.com/user-attachments/assets/3ce8f69b-471d-4590-bbc8-32c4920390c8)
 
-![Julia Set Animation](assets/julia-set-demo.gif)
 
-*Real-time Julia set rendering*
+
 
 
 
@@ -71,33 +71,7 @@ Different values of the complex parameter `c` produce dramatically different Jul
 - **High precision** calculations for deep zoom levels
 - **Optimized GPU performance** for smooth frame rates
 
-## Technical Implementation
 
-### Fragment Shader Algorithm
-
-```glsl
-vec2 julia_iteration(vec2 z, vec2 c) {
-    return vec2(z.x * z.x - z.y * z.y + c.x, 
-                2.0 * z.x * z.y + c.y);
-}
-
-float julia_set(vec2 coord, vec2 c, int max_iterations) {
-    vec2 z = coord;
-    for (int i = 0; i < max_iterations; i++) {
-        if (dot(z, z) > 4.0) // |z|² > 4 means |z| > 2
-            return float(i) / float(max_iterations);
-        z = julia_iteration(z, c);
-    }
-    return 0.0; // Point is in the set
-}
-```
-
-### Coordinate Mapping
-
-The fragment shader maps screen coordinates to the complex plane:
-```glsl
-vec2 complex_coord = (gl_FragCoord.xy - resolution/2.0) / zoom + offset;
-```
 
 ## Requirements
 
